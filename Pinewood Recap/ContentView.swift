@@ -40,7 +40,7 @@ struct RecapWebView: UIViewRepresentable {
 
             // Intercept /auth/start and handle it with ASWebAuthenticationSession
             // so the user's existing Safari/Schoology session is reused (just tap Allow).
-            if url.host == "127.0.0.1" && url.path == "/auth/start" {
+            if url.host == URL(string: AppConfig.recapBaseURL)?.host && url.path == "/auth/start" {
                 decisionHandler(.cancel)
                 Task { @MainActor in await self.handleMobileOAuth(webView: webView) }
                 return
@@ -85,7 +85,7 @@ struct RecapWebView: UIViewRepresentable {
             // 3. Extract the temp code from pinewoodrecap://auth/done?code=...
             guard let components = URLComponents(url: callbackURL, resolvingAgainstBaseURL: false),
                   let code = components.queryItems?.first(where: { $0.name == "code" })?.value,
-                  let activateURL = URL(string: "\(AppConfig.recapBaseURL)/auth/activate-code?code=\(code)")
+                  let activateURL = URL(string: "\(AppConfig.recapBaseURL)/auth/activate-code?code=\(code)&iosapp=1")
             else { return }
 
             // 4. Load /auth/activate-code in the WKWebView so the server sets the
