@@ -21,8 +21,8 @@ struct ContentView: View {
                     if currentSlide >= 0 {
                         Button {
                             if let url = URL(string: AppConfig.recapBaseURL + "/") {
-                            store.webView?.load(URLRequest(url: url))
-                        }
+                                store.webView?.load(URLRequest(url: url))
+                            }
                         } label: {
                             Image(systemName: "house")
                         }
@@ -82,8 +82,6 @@ struct RecapWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let wkConfig = WKWebViewConfiguration()
         wkConfig.userContentController.add(context.coordinator, name: "slideChange")
-        // Always flag every page as the iOS app so web buttons stay hidden
-        // and the notch offset applies, regardless of whether ?iosapp=1 is in the URL.
         wkConfig.userContentController.addUserScript(WKUserScript(
             source: "document.documentElement.classList.add('iosapp'); document.documentElement.style.setProperty('--ios-notch-offset', '1.5rem');",
             injectionTime: .atDocumentStart,
@@ -124,7 +122,6 @@ struct RecapWebView: UIViewRepresentable {
 
     func updateUIView(_ webView: WKWebView, context: Context) {}
 
-    // Injected into every page load; exits silently on non-recap pages (no slide elements).
     private static let slideObserverScript = """
     (function() {
         var ids = ['slide1', 'slide2', 'slide3', 'slide4'];
