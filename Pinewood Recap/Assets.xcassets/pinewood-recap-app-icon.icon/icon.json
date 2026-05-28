@@ -17,7 +17,7 @@
   },
   "groups" : [
     {
-      "blur-material" : 0.05,
+      "blur-material" : null,
       "layers" : [
         {
           "fill-specializations" : [
@@ -33,17 +33,18 @@
               }
             }
           ],
+          "glass" : false,
           "image-name" : "pinewood-recap-app-icon-arrow 3.svg",
           "name" : "pinewood-recap-app-icon-arrow 3"
         }
       ],
       "shadow" : {
-        "kind" : "layer-color",
+        "kind" : "none",
         "opacity" : 0.5
       },
-      "specular" : true,
+      "specular" : false,
       "translucency" : {
-        "enabled" : true,
+        "enabled" : false,
         "value" : 0.65
       }
     },
@@ -53,7 +54,20 @@
           "fill-specializations" : [
             {
               "value" : {
-                "automatic-gradient" : "srgb:0.16000,0.40000,0.24800,1.00000"
+                "linear-gradient" : [
+                  "display-p3:0.22353,0.38431,0.25490,1.00000",
+                  "srgb:0.16000,0.40000,0.24800,1.00000"
+                ],
+                "orientation" : {
+                  "start" : {
+                    "x" : 0.5,
+                    "y" : 0
+                  },
+                  "stop" : {
+                    "x" : 0.5,
+                    "y" : 0.7
+                  }
+                }
               }
             },
             {
@@ -63,13 +77,14 @@
               }
             }
           ],
-          "glass" : true,
+          "glass" : false,
           "image-name" : "pinewood-recap-app-icon-tree.svg",
           "name" : "pinewood-recap-app-icon-tree"
         }
       ],
+      "lighting" : "individual",
       "shadow" : {
-        "kind" : "neutral",
+        "kind" : "none",
         "opacity" : 0.25
       },
       "specular" : false,
